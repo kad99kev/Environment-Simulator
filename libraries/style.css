@@ -1,0 +1,28 @@
+.btn{
+  padding: 5 5px;
+  font-size: 15px;
+}
+
+.content p {
+  margin: 15px;
+}
+
+.content h5 {
+  margin: 15px;
+  text-decoration: underline;
+}
+
+.content-span{
+  margin: 15px;
+}
+
+a {
+  color: green;
+}
+a:hover {
+  color: olive;
+}
+
+.header {
+  margin-left: 15px;
+}

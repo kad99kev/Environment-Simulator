@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>EnvSim</title>
+    <link rel="stylesheet" href="/libraries/bootstrap.min.css">
+    <link rel="stylesheet" href="/libraries/style.css">
+    <script src="https://kit.fontawesome.com/47174c3592.js"></script>
+    <script src="libraries/p5.min.js" charset="utf-8"></script>
+    <script src="libraries/p5.dom.min.js" charset="utf-8"></script>
+    <script src="libraries/ray.js" charset="utf-8"></script>
+    <script src="public/prey.js" charset="utf-8"></script>
+    <script src="public/predator.js" charset="utf-8"></script>
+    <script src="public/food.js" charset="utf-8"></script>
+    <script src="public/boundary.js" charset="utf-8"></script>
+    <script src="public/sketch.js" charset="utf-8"></script>
+    <script src="public/GA.js" charset="utf-8"></script>
+    <script src="public/traits.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="header">
+      <h1>Simulation of Environments</h1>
+      <span><a href="#info">How this works?</a></span>
+    </div>
+
+    <br>
+
+    <div id="sketch-holder">
+
+    </div>
+
+    <div class="content">
+
+      <div id="slider-div">
+        <span class="content-span">Simulation Speed: <span id="speed">1</span></span>
+        <br>
+        <input style="margin-left: 15px;" id="speedSlider" type="range" min="1" max="5" value="1">
+        <span class="content-span">Adjust the simulation speed using the slider.</span>
+      </div>
+
+      <hr>
+
+      <div id="generation">
+        <span class="content-span">Generation Number: <span id="gen-num">1</span></span>
+      </div>
+
+      <hr>
+
+      <div class="control-info">
+        <h5>Control Settings:</h5>
+        <p>You can Start and Stop the current simulation. Use Restart to restart the simulation with new settings.</p>
+        <p>Adjust your Counter Limit here.</p>
+      </div>
+
+      <div id="counter-div">
+        <span class="content-span">Counter Limit: <span id="counter-limit">500</span></span>
+        <button class="btn btn-outline-secondary" id="increase-counter-limit"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-counter-limit"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Limit: <span id="new-limit">500</span></span>
+        <span class="content-span">Counter: <span id="counter">0</span></span>
+      </div>
+
+      <br>
+
+      <div id="option">
+        <span class="content-span"><button class="btn btn-outline-success"id="start">Start</button></span>
+        <span class="content-span"><button class="btn btn-outline-danger" id="stop">Stop</button></span>
+        <span class="content-span"><button class="btn btn-outline-warning" id="restart">Restart</button></span>
+      </div>
+
+      <hr>
+
+      <div class="prey-info">
+        <h5>Prey Settings:</h5>
+      </div>
+
+      <div id="preys-mass">
+        <span class="content-span">Mass of Preys: <span id="prey-mass">10</span></span>
+        <button class="btn btn-outline-secondary" id="increase-prey-mass"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-prey-mass"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Prey Mass: <span id="new-prey-mass">10</span></span>
+      </div>
+
+      <br>
+
+      <div id="preys-sight">
+        <span class="content-span">Sight of Preys: <span id="prey-sight">50</span></span>
+        <button class="btn btn-outline-secondary" id="increase-prey-sight"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-prey-sight"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Prey Sight: <span id="new-prey-sight">50</span></span>
+      </div>
+
+      <br>
+
+      <div id="preys-speed">
+        <span class="content-span">Speed of Preys: <span id="prey-speed">2</span></span>
+        <button class="btn btn-outline-secondary" id="increase-prey-speed"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-prey-speed"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Prey Speed: <span id="new-prey-speed">2</span></span>
+      </div>
+
+      <br>
+
+      <div id="preys-num">
+        <span class="content-span">Number of Preys: <span id="prey-num">50</span></span>
+        <button class="btn btn-outline-secondary" id="increase-prey"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-prey"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Prey Number: <span id="new-prey">50</span></span>
+      </div>
+
+      <hr>
+
+      <div class="predator-info">
+        <h5>Predator Settings:</h5>
+      </div>
+
+      <div id="predators-mass">
+        <span class="content-span">Mass of Predators: <span id="pred-mass">10</span></span>
+        <button class="btn btn-outline-secondary" id="increase-pred-mass"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-pred-mass"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Predator Mass: <span id="new-pred-mass">10</span></span>
+      </div>
+
+      <br>
+
+      <div id="predators-sight">
+        <span class="content-span">Sight of Predators: <span id="pred-sight">50</span></span>
+        <button class="btn btn-outline-secondary" id="increase-pred-sight"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-pred-sight"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Predator Sight: <span id="new-pred-sight">50</span></span>
+      </div>
+
+      <br>
+
+      <div id="predators-speed">
+        <span class="content-span">Speed of Predators: <span id="pred-speed">3</span></span>
+        <button class="btn btn-outline-secondary" id="increase-pred-speed"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-pred-speed"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Predator Speed: <span id="new-pred-speed">3</span></span>
+      </div>
+
+      <br>
+
+      <div id="predators-num">
+        <span class="content-span">Number of Predators: <span id="pred-num">2</span></span>
+        <button class="btn btn-outline-secondary" id="increase-pred"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-pred"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Predator Number: <span id="new-pred">2</span></span>
+      </div>
+
+      <hr>
+
+      <div class="food-info">
+        <h5>Food Settings:</h5>
+      </div>
+
+      <div class="decrease">
+        <span class="content-span">Decrease Food: <span id="dec-food" style="color: red;">false</span></span>
+        <button class="btn btn-outline-dark" id="new-dec">Switch</button>
+        <span class="content-span">New Decrease Food Value: <span id="new-dec-food" style="color: red;">false</span></span>
+      </div>
+
+      <br>
+
+      <div id="food">
+        <span class="content-span">Number of Food Available: <span id="food-num">50</span></span>
+        <span class="content-span">Starting Food Available: <span id="food-start">50</span></span>
+        <button class="btn btn-outline-secondary" id="increase-food"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-food"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Food Available: <span id="new-food">50</span></span>
+      </div>
+
+      <hr>
+
+      <div class="mutation-info">
+        <h5>Mutation Settings:</h5>
+      </div>
+
+      <div id="mutation">
+        <span class="content-span">Mutation Rate: <span id="mut-rate">10%</span></span>
+        <button class="btn btn-outline-secondary" id="increase-mut"><span class="fas fa-sort-up"></span></button>
+        <button class="btn btn-outline-dark" id="decrease-mut"><span class="fas fa-sort-down"></span></button>
+        <span class="content-span">New Mutation Rate: <span id="new-mut">10%</span></span>
+      </div>
+
+      <hr>
+
+      <div class="rays-info">
+        <h5>Show Rays:</h5>
+      </div>
+
+      <div id="rays">
+        <span class="content-span">Showing Rays: <span id="show-ray" style="color: green">true</span></span>
+        <button class="btn btn-outline-dark" id="ray-btn">Switch</button>
+      </div>
+
+      <hr>
+    </div>
+
+    <span class="content-span">Average values of the entire prey population.</span>
+
+    <canvas style="width:500px"id="chart-holder"></canvas>
+
+    <hr>
+
+    <div class="content info" id="info">
+      <h5>How this works?</h5>
+      <ul>
+        <li>The Counter Limit decides how long your "day" lasts. After each day the next generation of preys is generated. It is generated on the following conditions:
+          <ul>
+            <li>If a prey is unable to eat food, it dies.</li>
+            <li>If a prey is able to eat 1 food. It survives.</li>
+            <li>If a prey is able to eat more than 1 food, it survives and generates offspring with some mutation. The amount of offspring generated depends on how much food it consumed. If it consumed 2 food then it has 1 child, if it consumed 4 food then it has 2 children, so on and so forth.</li>
+          </ul>
+        </li>
+
+        <br>
+
+        <li>Prey Settings:
+          <ul>
+            <li>The movement of each prey costs energy. If they run out of energy they die. Food provides energy. Each day their energy is reset.</li>
+            <li>Adjusting the mass of the preys will decide how heavy the preys are. The heavier they are, the slower they move. The energy lost is proportional to the cube of the mass.</li>
+            <li>Adjusting the sight of the prey will decide how far they can see. Letting them observe further would mean less time would be spent searching for food.</li>
+            <li>Adjusting the speed of the prey will decide how fast they can move. More speed means quicker movements.</li>
+          </ul>
+        </li>
+
+        <br>
+
+        <li>Predator Settings:
+          <ul>
+            <li>The movement of each predator costs energy. If they run out of energy they die. Food provides energy. Each day their energy is reset.</li>
+            <li>Adjusting the mass of the predators will decide how heavy the predators are. The heavier they are, the slower they move. The energy lost is proportional to the cube of the mass.</li>
+            <li>Adjusting the sight of the predator will decide how far they can see. Letting them observe further would mean less time would be spent searching for food.</li>
+            <li>Adjusting the speed of the predator will decide how fast they can move. More speed means quicker movements.</li>
+          </ul>
+        </li>
+
+        <br>
+
+        <li>Food Settings:
+          <ul>
+            <li>The decrease food option if set true will reduce the amount of food provided each day until the number of food provided reaches 10.</li>
+            <li>You can also set the amount of food to be made available at the start of each day.</li>
+            <li>Note: Number of food available is the food available for the current generation/day. If decrease food is set to true, you'll notice this decreases. Starting food available is the amount of food available at the very first generation/day (starting value).</li>
+          </ul>
+        </li>
+
+        <br>
+
+        <li>Mutation Settings:
+            <ul>
+              <li>Adjusting the mutation rate affects the probability of mutation of the child/children of the preys.</li>
+            </ul>
+        </li>
+
+        <br>
+
+        <li>Show Rays:
+          <ul>
+            <li>If set to true, it will display the current item the object is tracking.</li>
+          </ul>
+        </li>
+
+        <br>
+
+        <li>
+          Note: Adding a lot of features could cause your browser to slow down.
+        </li>
+      </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="public/chart.js" charset="utf-8"></script>
+  </body>
+</html>
