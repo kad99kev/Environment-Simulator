@@ -1,6 +1,8 @@
 # Simulation of Environments
 This project uses [p5.js](https://p5js.org/) and [chart.js](https://www.chartjs.org/).
 
+Visit [this](https://kad99kev.github.io/projects/EnvSim/index.html) link to check it out!
+
 How it works?
 
 - The Counter Limit decides how long your "day" lasts. After each day the next generation of preys is generated. It is generated on the following conditions:
