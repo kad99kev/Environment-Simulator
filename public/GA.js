@@ -10,7 +10,6 @@ function mutate(x) {
 
 function nextGeneration(speciesList){
   resetSketch();
-  normalizeFitness(speciesList);
   newSpeciesList = generate(speciesList);
   generationNum += 1;
   genTxt.html(generationNum);
@@ -38,22 +37,4 @@ function generate(oldSpeciesList){
     }
   }
   return newSpeciesList;
-}
-
-
-//Normalizing the fitness of all speciesList
-function normalizeFitness(speciesList){
-  //Making it exponentially better
-  for(let i = 0; i < speciesList.length; i++){
-    speciesList[i].fitness += speciesList[i].energy;
-    speciesList[i].fitness = pow(speciesList[i].fitness, 2);
-  }
-  //Adding all scores and dividing by sum to calculate fitness
-  let sum = 0;
-  for(let species of speciesList){
-    sum += species.fitness;
-  }
-  for(let species of speciesList){
-    species.fitness = species.fitness / sum;
-  }
 }

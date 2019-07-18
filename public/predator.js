@@ -4,10 +4,8 @@ class Predator {
     this.vel = p5.Vector.random2D();
     this.acc = createVector();
     this.fov = 90;
-    this.maxForce = 2;
     this.rays = [];
     this.dead = false;
-    this.fitness = 0;
     this.beingChased = false;
     for(let a = -this.fov; a < this.fov; a += 36){
       this.rays.push(new Ray(this.pos, radians(a)));
@@ -27,7 +25,6 @@ class Predator {
   }
 
   reset(){
-    this.fitness = 0;
     this.energy = 1000;
     this.food = 0;
     this.pos.set(floor(random(canvasWidth)), floor(random(canvasHeight)));
@@ -71,8 +68,7 @@ class Predator {
   calcForce(closePos, sign){
     let desiredVelocity = closePos.sub(this.pos).normalize().setMag(this.traits.speed);
     const steering = p5.Vector.sub(desiredVelocity, this.vel);
-    steering.setMag(sign * this.traits.speed);
-    steering.limit(this.maxForce);
+    steering.setMag(sign);
     steering.div(this.traits.mass);
     this.applyForce(steering);
   }

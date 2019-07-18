@@ -4,10 +4,8 @@ class Prey {
     this.vel = p5.Vector.random2D();
     this.acc = createVector();
     this.fov = 90;
-    this.maxForce = 2;
     this.rays = [];
     this.dead = false;
-    this.fitness = 0;
     this.beingChased = false;
     this.energy = 1000;
     this.food = 0;
@@ -29,7 +27,6 @@ class Prey {
   }
 
   reset(){
-    this.fitness = 0;
     this.energy = 1000;
     this.food = 0;
     this.pos.set(floor(random(canvasWidth)), floor(random(canvasHeight)));
@@ -53,7 +50,7 @@ class Prey {
       this.vel.limit(this.traits.speed);
       this.acc.set(0, 0);
       this.beingChased = false;
-      this.energy -= (pow(this.traits.mass, 3) * pow(this.traits.speed, 2)) / pow(10, 3);
+      this.energy -= (pow(this.traits.mass, 2) * this.traits.speed) / pow(10, 3);
       for(let i = 0; i < this.rays.length; i++){
         this.rays[i].rotate(this.vel.heading());
       }
@@ -61,7 +58,6 @@ class Prey {
     if(this.energy <= 0){
       this.dead = true;
     }
-    this.fitness += 1;
   }
 
   display(){
@@ -79,7 +75,7 @@ class Prey {
   calcForce(closePos, sign){
     let desiredVelocity = closePos.sub(this.pos).normalize().setMag(this.traits.speed);
     const steering = p5.Vector.sub(desiredVelocity, this.vel);
-    steering.setMag(sign * this.traits.speed);
+    steering.setMag(sign);
     steering.div(this.traits.mass);
     this.applyForce(steering);
   }
@@ -179,7 +175,6 @@ class Prey {
 
       if(record < 5){
         this.dead = true;
-        this.fitness = 0;
       }
 
       if(closest){
